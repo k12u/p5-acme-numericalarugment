@@ -9,6 +9,10 @@ sub hello {
 package main;
 
 use Test::More;
+use Test::Exception;
 
 is(MyPackage->new->helloooooooooooooooooo, "Hello" x 18);
+note(MyPackage->new->helloooooooooooooooooo);
+dies_ok { MyPackage->new->noooo };
+
 done_testing;
