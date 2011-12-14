@@ -12,7 +12,7 @@ sub AUTOLOAD {
     my ($self) = shift;
     our $AUTOLOAD;
     my $method = $AUTOLOAD;
-    $method =~ s/.+:://;
+    $method =~ s/.*:://;
     my ($prefix, $count, $last) = $method =~ m/(.+?)((.)(\3+))$/;
     my $base_method = $prefix.$last;
     die "$base_method not defined" unless $self->can($base_method);
@@ -30,15 +30,24 @@ Acme::NumericalArgument - dynamic numerical argument by method name
 
 =head1 SYNOPSIS
 
-  use Acme::NumericalArgument;
+  package MyPackage;
+  use parent qw/Acme::NumericalArgument/;
+  sub hello {
+    my ($self, $count) = @_;
+    return("Hello" x $count);
+  }
+
+  package main;
+  print MyPackage->new->helloooooooooooooooooo;
+  # produces "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello"
 
 =head1 DESCRIPTION
 
-Acme::NumericalArgument is
+Acme::NumericalArgument is module for passeing dynamic numeric argument to the methods of the sub-classes.
 
 =head1 AUTHOR
 
-KAWAMOTO Minoru E<lt>kawamoto.minoru@gmail.comE<gt>
+KAWAMOTO Minoru E<lt>minoru-cpan@k12u.orgE<gt>
 
 =head1 SEE ALSO
 
