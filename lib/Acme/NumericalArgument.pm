@@ -9,14 +9,14 @@ sub new {
 }
 
 sub AUTOLOAD {
-    my ($self) = shift;
+    my ($self, @args) = @_;
     our $AUTOLOAD;
     my $method = $AUTOLOAD;
     $method =~ s/.*:://;
     my ($prefix, $count, $last) = $method =~ m/(.+?)((.)(\3+))$/;
     my $base_method = $prefix.$last;
     die "$base_method not defined" unless $self->can($base_method);
-    $self->$base_method(length($count));
+    $self->$base_method(length($count), @args);
 }
 
 sub DESTROY {}
